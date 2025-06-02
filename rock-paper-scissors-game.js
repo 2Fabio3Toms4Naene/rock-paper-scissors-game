@@ -1,63 +1,152 @@
+const containerButtons = document.querySelector(".container-buttons");
+const containerRounds = document.querySelector(".container-rounds");
+const containerFinalScore = document.querySelector(".container-final-score");
+
 let humanScore = 0;
 let computerScore = 0;
+let rounds = 1
 
-function playRound() {
+//GET COMPUTER CHOICE
+function getComputerChoice() {
+    const choicesC = ["rock", "paper", "scissors"];
+    const computerChoice = choicesC[Math.floor(Math.random() * choicesC.length)];
 
-    console.log("".padStart(10, "-") + " Welcome to rock paper scissors game " +"".padEnd(10, "-"));
+    return computerChoice;
+};
 
-    for(let i = 1; i <= 5; i++) {
-        console.log(`Round: ${i}`)
+//GET HUMAN CHOICE AND PLAYROUND
+containerButtons.addEventListener("click", (event) => {
 
-        const choicesH = prompt("Enter your choice, rock, paper or scissors:");
-        const humanChoice = choicesH;
+    if(rounds > 0 && rounds < 6) {
+        let target = event.target;
+        let humanChoice = target.id;
 
-        const choicesC = ["rock", "paper", "scissors"];
-        const computerChoice = choicesC[Math.floor(Math.random() * choicesC.length)];
+        const computerChoice = getComputerChoice();
 
-        console.log(`You: ${humanChoice.toLowerCase()}`);
-        console.log(`Computer: ${computerChoice.toLowerCase()}`);
+        const cardRound = document.createElement("div");
 
-         if(humanChoice.toLowerCase() === computerChoice.toLowerCase()) {
-            console.log("It's tie!\n\n\n");
+        const round = document.createElement("small");
+        round.textContent = `Round: ${rounds++}`;
+        cardRound.appendChild(round)
+
+
+        const showHumanChoice = document.createElement("span");
+        const img = document.createElement("img");
+        if(humanChoice === "rock") {
+            img.src = "./images/rock.jpeg";
+            img.alt = "rock";
+        }
+        else if(humanChoice === "paper") {
+            img.src = "./images/paper-hand.jpeg";
+            img.alt = "paper";
+        }
+        else if(humanChoice === "scissors") {
+            img.src = "./images/scissors-hand.jpeg";
+            img.alt = "scissors";
+        }
+        showHumanChoice.textContent = `You: ${humanChoice}`;
+        showHumanChoice.appendChild(img)
+        cardRound.appendChild(showHumanChoice);
+
+        const imgC = document.createElement("img")
+        if(computerChoice === "rock") {
+            imgC.src = "./images/rock.jpeg";
+            imgC.alt = "rock";
+        }
+        else if(computerChoice === "paper") {
+            imgC.src = "./images/paper-hand.jpeg";
+            imgC.alt = "paper";
+        }
+        else if(computerChoice === "scissors") {
+            imgC.src = "./images/scissors-hand.jpeg";
+            imgC.alt = "scissors";
+        }
+        const showComputerChoice = document.createElement("p");
+        showComputerChoice.textContent = `Computer: ${computerChoice}`;
+        showComputerChoice.appendChild(imgC);
+        cardRound.appendChild(showComputerChoice);
+
+        const showRoundWiner = document.createElement("b");
+        cardRound.appendChild(showRoundWiner);
+
+        containerRounds.appendChild(cardRound);
+
+        if(humanChoice.toLowerCase() === computerChoice.toLowerCase()) {
+            showRoundWiner.textContent = "It's tie!";
         }
         else if(humanChoice.toLowerCase() === "rock" && computerChoice.toLowerCase() === "paper") {
-            console.log("Computer won, paper wins rock!\n\n\n");
+            showRoundWiner.textContent = "Computer won, paper wins rock!";
             computerScore++;
         }
         else if(humanChoice.toLowerCase() === "rock" && computerChoice.toLowerCase() === "scissors") {
-            console.log("You won, rock wins scissors!\n\n\n")
+            showRoundWiner.textContent = "You won, rock wins scissors!";
             humanScore++;
         }
         else if(humanChoice.toLowerCase() === "paper" && computerChoice.toLowerCase() === "rock") {
-            console.log("You won, paper wins rock!\n\n\n");
+            showRoundWiner.textContent = "You won, paper wins rock!";
             humanScore++;
         }
         else if(humanChoice.toLowerCase() === "paper" && computerChoice.toLowerCase() === "scissors") {
-            console.log("Computer won, scissors wins paper!\n\n\n");
+            showRoundWiner.textContent = "Computer won, scissors wins paper!";
             computerScore++;
         }
         else if(humanChoice.toLowerCase() === "scissors" && computerChoice.toLowerCase() === "rock") {
-            console.log("Computer won, rock wins scissors!\n\n\n");
+            showRoundWiner.textContent = "Computer won, rock wins scissors!";
             computerScore++;
         }
         else if(humanChoice.toLowerCase() === "scissors" && computerChoice.toLowerCase() === "paper") {
-            console.log("You won, scissors wins paper!\n\n\n");
+            showRoundWiner.textContent = "You won, scissors wins paper!";
             humanScore++;
         }
-    }
-        console.log("".padStart(20, "-")+ " Final score " +"".padEnd(20, "-"));
 
-        console.log(`You: ${humanScore}`);
-        console.log(`Computer: ${computerScore}`);
-        
-        if(humanScore == computerScore) {
-            console.log("It's tie, no one won!");
-        }
-        else if(humanScore > computerScore) {
-            console.log("You won the game, congretulations!");
-        }
-        else if(humanScore < computerScore) {
-            console.log("Computer won, you lost the game!");
+        if(rounds == 6) {
+            const finalScore = document.createElement("h2");
+            finalScore.textContent = "Final score";
+            containerFinalScore.appendChild(finalScore);
+
+            const showHumanScore = document.createElement("p");
+            showHumanScore.textContent = `You: ${humanScore}`;
+            containerFinalScore.appendChild(showHumanScore);
+
+            const showComputerScore = document.createElement("p");
+            showComputerScore.textContent = `Computer: ${computerScore}`;
+            containerFinalScore.appendChild(showComputerScore);
+
+            const winerOfTheGame = document.createElement("p");
+            containerFinalScore.appendChild(winerOfTheGame);
+
+            if(humanScore == computerScore) {
+                winerOfTheGame.textContent = "It's tie, no one won!";
+            }
+            else if(humanScore > computerScore) {
+                winerOfTheGame.textContent = "You won the game, congretulations!";
+            }
+            else if(humanScore < computerScore) {
+                winerOfTheGame.textContent = "Computer won, you lost the game!";
+            };
+
+            const clearGame = document.createElement("button");
+            clearGame.textContent = "clear the game and start again"
+            containerFinalScore.appendChild(clearGame);
+
+            clearGame.addEventListener("click", () => {
+                const allCardRounds = containerRounds.querySelectorAll("div");
+                allCardRounds.forEach((div) => {
+                    div.remove();
+                });
+
+                containerFinalScore.removeChild(finalScore);
+                containerFinalScore.removeChild(showHumanScore);
+                containerFinalScore.removeChild(showComputerScore);
+                containerFinalScore.removeChild(winerOfTheGame);
+                containerFinalScore.removeChild(clearGame);
+                humanScore = 0;
+                computerScore = 0
+                rounds = 1;
+            });
         };
-};
-playRound();
+    }
+    else{
+        alert("pleae clear the game to play again")
+    };
+});
