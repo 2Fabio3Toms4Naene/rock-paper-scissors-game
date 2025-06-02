@@ -1,0 +1,137 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    height: 100vh;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+h1{
+    text-align: center;
+    font-size: 2.4em;
+    color: #fff;
+}
+.container-banner{
+    width: 60%;
+    height: 150px;
+}
+.img-banner{
+    width: 100%;
+    height: 100%;
+}
+.container-game{
+    width: 60%;
+    height: auto;
+    border: 4px solid aqua;
+}
+.section-buttons{
+    width: 100%;
+    padding: 10px 0 10px;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.section-buttons,
+.container-buttons{
+    display: flex;
+    gap: 15px;
+}
+.container-buttons button img{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+.container-buttons button{
+    border: none;
+    padding: 10px 15px;
+    border-radius: 10px;
+    font-size: 1.3em;
+    display: flex;
+    align-items: center;
+}
+.container-buttons #rock{
+    color: darkgoldenrod;
+}
+.container-buttons #paper{
+    color: chocolate;
+}
+.container-buttons #scissors{
+    color: brown;
+}
+.section-buttons span{
+    font-size: 1.4em;
+    color: #fff;
+}
+.container-rounds{
+    padding: 20px;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+.container-rounds,
+.container-final-score{
+    width: 100%;
+    display: flex;
+}
+.container-rounds div{
+    width: 250px;
+    height: auto;
+    padding: 5px;
+    font-size: 1.3em;
+    background-color: gray;
+    box-shadow: 5px 5px 5px 0 peru;
+    color: white;
+    border: 2px solid saddlebrown ;
+    border-radius: 5px;
+    flex: 1 0 auto;
+
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.container-rounds div img{
+    width: 50px;
+    height: 40px;
+    border-radius: 20px;
+}
+.container-rounds div span{
+    color: orange;
+}
+.container-rounds div span,
+.container-rounds div p{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.container-rounds div p{
+    color: yellowgreen;
+}
+.container-rounds div b{
+    color: yellow;
+}
+.container-final-score{
+    padding-bottom: 10px;
+    color: wheat;
+    flex-direction: column;
+    align-items: center;
+    gap: 7px;
+}
+.container-final-score h2{
+    font-size: 2.2em;
+}
+.container-final-score p{
+    font-size: 1.3em;
+}
+.container-final-score button{
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    background-color: red;
+    color: #fff;
+    font-size: 1.2em;
+}
